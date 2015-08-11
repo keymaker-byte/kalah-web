@@ -5,5 +5,5 @@ Thge implementation uses standard Servlets and Freemarker.
 * Kalah game library (https://github.com/zenilt/kalah)
 * Freemarker (http://freemarker.org)
 
-A demo can be seen at:
-http://www.zenilt.com/kalah-web
+## Demo
+A demo can be seen at: http://www.zenilt.com/kalah-web
