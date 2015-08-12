@@ -52,11 +52,11 @@ public class GameServlet extends KalahServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	HttpSession session = request.getSession();
 	KalahGame game = (KalahGame) session.getAttribute("game");
-	Template template = templateConfiguration.getTemplate("game.html");
+	Template view = templateConfiguration.getTemplate("game.html");
 	Map root = new HashMap();
 	root.put("game", game);
 	root.put("reset", appUrl(request, StartServlet.URL));
-	render(request, response, template, root);
+	render(request, response, view, root);
     }
 
     @Override
