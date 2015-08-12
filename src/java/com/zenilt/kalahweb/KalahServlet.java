@@ -27,6 +27,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import java.io.File;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -69,10 +70,16 @@ public class KalahServlet extends HttpServlet {
 	}
     }
 
-    protected void render(HttpServletRequest request, HttpServletResponse response, Template template, Map root) {
+    protected void render(HttpServletRequest request, HttpServletResponse response, Template view, Map viewRoot) {
 	try {
+	    viewRoot.put("lang", lang);
+	    StringWriter writer = new StringWriter();
+	    view.process(viewRoot, writer);
+	    Template template = templateConfiguration.getTemplate("template.html");
+	    Map root = new HashMap();
 	    root.put("lang", lang);
 	    root.put("url", appUrl(request, "/"));
+	    root.put("content", writer.toString());
 	    template.process(root, response.getWriter());
 	    response.flushBuffer();
 	} catch (Exception e) {

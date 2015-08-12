@@ -1,86 +1,50 @@
-<!DOCTYPE html>
-<!--
-The MIT License
-
-Copyright 2015 Juan Francisco Rodríguez.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
--->
-<html>
-    <head>
-	<title>${lang.kalah}</title>
-	<meta charset="UTF-8">
-	<link href="${url}/assets/css/bootstrap.min.css" rel="stylesheet">
-	<link href="${url}/assets/css/bootstrap-theme.min.css" rel="stylesheet">
-	<script src="${url}/assets/js/jquery-1.11.2.min.js" ></script>
-	<script src="${url}/assets/js/bootstrap.min.js" ></script>
-    </head>
-    <body>
-	<div class="container">
-	    <div class="jumbotron">
-		<h1>${lang.kalah}</h1>
-		<form method="POST">
-		    <table class="table">
-			<tr>
-			    <th>
-				${game.playerB.name}
-			    </th>
-			    <th>
-				${game.playerB.house.size()}
-			    </th>
-			    <#assign i = game.playerB.pits?size - 1>
-			    <#list game.playerB.pits?reverse as pit>
-			    <td>
-				<#if game.status == "PLAYINGA" ||  pit.size() == 0>
-				<button class="btn btn-lg btn-success" disabled>${pit.size()}</button>
-				<#else>
-				<button type="submit" name=move value="${i}" class="btn btn-lg btn-success">${pit.size()}</button>
-				</#if>
-			    </td>
-			    <#assign i = i - 1>
-			    </#list>
-			    <td></td>
-			</tr>
-			<tr>
-			    <th>
-				${game.playerA.name}
-			    </th>
-			    <td></td>
-			    <#assign i = 0>
-			    <#list game.playerA.pits as pit>
-			    <td>
-				<#if game.status == "PLAYINGB" ||  pit.size() == 0>
-				<button class="btn btn-lg btn-success" disabled>${pit.size()}</button>
-				<#else>
-				<button type="submit" name=move value="${i}" class="btn btn-lg btn-success">${pit.size()}</button>
-				</#if>
-			    </td>
-			    <#assign i = i + 1>
-			    </#list>
-			    <th>
-				${game.playerA.house.size()}
-			    </th>
-			</tr>
-		    </table>
-		</form>
-		<a href="${reset}" class="btn btn-lg btn-success">${lang.reset}</a>
-	    </div>
-	</div>
-    </body>
-</html>
+<#if game.status == "PLAYINGA">
+<h2><span class="label label-info">${lang.turn} : ${game.playerA.name}</span></h2>
+<#elseif game.status == "PLAYINGB">
+<h2><span class="label label-info">${lang.turn} : ${game.playerB.name}</span></h2>
+</#if>
+<form method="POST">
+    <table class="table table-bordered">
+	<tr>
+	    <th>
+		${game.playerB.name}
+	    </th>
+	    <th class="bg-success text-center">
+		${game.playerB.house.size()}
+	    </th>
+	    <#assign i = game.playerB.pits?size - 1>
+	    <#list game.playerB.pits?reverse as pit>
+	    <td class="text-center">
+		<#if game.status == "PLAYINGA" ||  pit.size() == 0>
+		<button class="btn btn-lg btn-success" disabled>${pit.size()}</button>
+		<#else>
+		<button type="submit" name=move value="${i}" class="btn btn-lg btn-success">${pit.size()}</button>
+		</#if>
+	    </td>
+	    <#assign i = i - 1>
+	    </#list>
+	    <td></td>
+	</tr>
+	<tr>
+	    <th>
+		${game.playerA.name}
+	    </th>
+	    <td></td>
+	    <#assign i = 0>
+	    <#list game.playerA.pits as pit>
+	    <td class="text-center">
+		<#if game.status == "PLAYINGB" ||  pit.size() == 0>
+		<button class="btn btn-lg btn-success" disabled>${pit.size()}</button>
+		<#else>
+		<button type="submit" name=move value="${i}" class="btn btn-lg btn-success">${pit.size()}</button>
+		</#if>
+	    </td>
+	    <#assign i = i + 1>
+	    </#list>
+	    <th class="bg-success text-center">
+		${game.playerA.house.size()}
+	    </th>
+	</tr>
+    </table>
+</form>
+<a href="${reset}" class="btn btn-lg btn-success">${lang.reset}</a>

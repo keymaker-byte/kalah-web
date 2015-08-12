@@ -52,8 +52,8 @@ public class StartServlet extends KalahServlet {
 	HttpSession session = request.getSession();
 	KalahGame game = new KalahGame(KalahMode.STONES_3);
 	session.setAttribute("game", game);
-	Map root = new HashMap();
 	Template template = templateConfiguration.getTemplate("start.html");
+	Map root = new HashMap();
 	render(request, response, template, root);
     }
 

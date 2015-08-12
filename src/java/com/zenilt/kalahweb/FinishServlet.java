@@ -52,6 +52,7 @@ public class FinishServlet extends KalahServlet {
 	try {
 	    HttpSession session = request.getSession();
 	    KalahGame game = (KalahGame) session.getAttribute("game");
+	    Template template = templateConfiguration.getTemplate("finish.html");
 	    Map root = new HashMap();
 	    root.put("game", game);
 	    root.put("reset", appUrl(request, StartServlet.URL));
@@ -59,7 +60,6 @@ public class FinishServlet extends KalahServlet {
 	    if (winer != null) {
 		root.put("winner", winer.getName());
 	    }
-	    Template template = templateConfiguration.getTemplate("finish.html");
 	    render(request, response, template, root);
 	} catch (KalahException e) {
 	    Logger.getLogger("Kalah").log(Level.WARNING, e.getMessage(), e);
